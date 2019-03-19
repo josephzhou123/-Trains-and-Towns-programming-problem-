@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# https://github.com/josephzhou123/-Trains-and-Towns-programming-problem-/blob/master/trains.py
 # @Date    : 2019-03-19
 # @Author  : Joseph
 import pdb
@@ -36,6 +37,7 @@ class RouteSet(object):
         ## build index
         self._build_route_index()
 
+    ## build extend route index
     def _build_route_index(self):
         self.fromStops = {}
         toStops = []
@@ -55,7 +57,7 @@ class RouteSet(object):
                 if len(routeChain) > 0:
                     self._exRouteIndex[fromStop+toStop] = routeChain
 
-    ## recursion
+    ## recursion search
     def _extend_route(self, fromStop, toStop, chainRoute):
         result = []
         if fromStop not in self.fromStops:
@@ -143,6 +145,7 @@ class SearchRoute(object):
     def search_options_max_weight(self, fromStop, toStop, maxWeight):
         optionList = []
         routeList = self.rtSet.get_extend_routes(fromStop, toStop)
+
         for route in routeList:
             weight = 0
             for nd in route:
@@ -161,6 +164,7 @@ class SearchRoute(object):
     def search_options_fix_stop(self, fromStop, toStop, fixStop):
         optionList = []
         routeList = self.rtSet.get_extend_routes(fromStop, toStop)
+
         for route in routeList:
             if len(route) > fixStop:
                 continue
@@ -190,7 +194,6 @@ class SearchRoute(object):
             optionList.append(route)
 
         return optionList
-
 
 
 
